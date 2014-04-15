@@ -8,14 +8,14 @@
 ## Creates a cache object initialized with the passed matrix.
 
 makeCacheMatrix <- function(x = matrix()) {
-  xi <- NULL
+  inverse <- NULL
   set <- function(y) {
     x <<- y
-    xi <<- NULL
+    inverse <<- NULL
   }
   get <- function() x
-  setinv <- function(inv) xi <<- inv
-  getinv <- function() xi
+  setinv <- function(inv) inverse <<- inv
+  getinv <- function() inverse
   list(set = set, get = get,
        setinv = setinv, getinv = getinv)
 }
@@ -25,13 +25,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ## or only returns it if it already exists.
 
 cacheSolve <- function(x, ...) {
-  xi <- x$getinv()
+  inverse <- x$getinv()
   if (!is.null(xi)) {
     message("getting cached inverse")
-    return(xi)
+    return(inverse)
   }
-  xo <- x$get()
-  xi <- solve(xo, ...)
-  x$setinv(xi)
-  return(xi)
+  xm <- x$get()
+  inverse <- solve(xm, ...)
+  x$setinv(inverse)
+  return(inverse)
 }
