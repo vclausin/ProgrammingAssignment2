@@ -2,12 +2,18 @@
 
 ## This function will create a list of functions to set a matrix and its inverse
 
-makeCacheMatrix <- function(x = matrix()) {
+makeCacheMatrix <- function(x = numeric()) {
         m <- NULL
         set <- function(y) {
                 x <<- y
                 m <<- NULL
-
+        }
+        get <- function() x
+        setinverse <- function(solve) m <<- solve
+        getinverse <- function() m
+        list(set = set, get = get,
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
 
 
